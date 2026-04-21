@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      Free Online Notepad - Simple Text Editor with Autosave & Word Counter
+    </title>
+
+    <meta
+      name="description"
+      content="Use this free online notepad to write, edit, and save notes instantly. No login required. Fast, secure, browser-based text editor."
+    />
+
+    <meta
+      name="keywords"
+      content="online notepad, free notepad, text editor online, browser notepad"
+    />
+
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=special_character"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+      crossorigin="anonymous"
+    ></script>
+
+    <meta property="og:title" content="Free Online Notepad" />
+    <meta
+      property="og:description"
+      content="Write and save notes instantly with this free online notepad."
+    />
+    <meta property="og:type" content="website" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Online Notepad",
+        "applicationCategory": "Productivity",
+        "operatingSystem": "All",
+        "description": "Free browser-based text editor with autosave and word counter"
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- TOP BANNER AD (728x90) -->
+    <div class="topBannerAd">
+      ADVERTISEMENT TOP
+      <!-- PASTE YOUR AD CODE HERE -->
+      <ins
+        class="adsbygoogle ad-top-banner-ins"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="XXXXXXXXXX"
+      ></ins>
+    </div>
+
+    <div class="fullScreen">
+      <div class="leftSide">
+        <div class="ad-container-vertical">
+          <p class="ad-label">ADVERTISEMENT LEFT</p>
+          <ins
+            class="adsbygoogle ad-vertical-ins"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="XXXXXXXXXX"
+          ></ins>
+        </div>
+      </div>
+
+      <div class="Middle">
+        <div id="wrapper">
+          <!-- ═══ TITLE BAR ═══ -->
+          <div id="title-bar">
+            <i class="fa-solid fa-file-lines"></i>
+            <h1>Free Online Notepad – Simple Text Editor</h1>
+            <span class="doc-name" id="doc-name-display">untitled.txt</span>
+          </div>
+
+          <!-- ═══ MENU BAR ═══ -->
+          <div id="menu-bar">
+            <!-- FILE -->
+            <div class="menu-item">
+              <button class="menu-trigger" onclick="toggleMenu('menu-file')">
+                File<i class="fa-solid fa-caret-down"></i>
+              </button>
+              <div class="dropdown" id="menu-file">
+                <div class="dd-item" onclick="newDoc()">
+                  <i class="fa-regular fa-file"></i> New Document
+                  <span class="shortcut">Ctrl+N</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="openFile()">
+                  <i class="fa-regular fa-folder-open"></i> Open…
+                  <span class="shortcut">Ctrl+O</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="saveFile()">
+                  <i class="fa-solid fa-floppy-disk"></i> Save
+                  <span class="shortcut">Ctrl+S</span>
+                </div>
+                <div class="dd-item" onclick="saveFileAs()">
+                  <i class="fa-solid fa-file-export"></i> Save As…
+                  <span class="shortcut">Ctrl+Shift+S</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="printDoc()">
+                  <i class="fa-solid fa-print"></i> Print…
+                  <span class="shortcut">Ctrl+P</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- EDIT -->
+            <div class="menu-item">
+              <button class="menu-trigger" onclick="toggleMenu('menu-edit')">
+                Edit<i class="fa-solid fa-caret-down"></i>
+              </button>
+              <div class="dropdown" id="menu-edit">
+                <div class="dd-item" onclick="cmd('undo')">
+                  <i class="fa-solid fa-rotate-left"></i> Undo
+                  <span class="shortcut">Ctrl+Z</span>
+                </div>
+                <div class="dd-item" onclick="cmd('redo')">
+                  <i class="fa-solid fa-rotate-right"></i> Redo
+                  <span class="shortcut">Ctrl+Y</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="cmd('cut')">
+                  <i class="fa-solid fa-scissors"></i> Cut
+                  <span class="shortcut">Ctrl+X</span>
+                </div>
+                <div class="dd-item" onclick="cmd('copy')">
+                  <i class="fa-regular fa-copy"></i> Copy
+                  <span class="shortcut">Ctrl+C</span>
+                </div>
+                <div class="dd-item" onclick="pasteText()">
+                  <i class="fa-solid fa-paste"></i> Paste
+                  <span class="shortcut">Ctrl+V</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="cmd('selectAll')">
+                  <i class="fa-solid fa-object-group"></i> Select All
+                  <span class="shortcut">Ctrl+A</span>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="openFindBar()">
+                  <i class="fa-solid fa-magnifying-glass"></i> Find &amp;
+                  Replace
+                  <span class="shortcut">Ctrl+H</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- INSERT -->
+            <div class="menu-item">
+              <button class="menu-trigger" onclick="toggleMenu('menu-insert')">
+                Insert<i class="fa-solid fa-caret-down"></i>
+              </button>
+              <div class="dropdown" id="menu-insert">
+                <div class="dd-sub">
+                  <div class="dd-item">
+                    <i class="fa-regular fa-calendar"></i> Date &amp; Time
+                  </div>
+                  <div class="sub-dropdown">
+                    <div class="dd-item" onclick="insertText(fmtDate1())">
+                      <i class="fa-solid fa-calendar-day"></i> 07 April 2026
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate2())">
+                      <i class="fa-solid fa-calendar"></i>
+                      04/07/2026
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate3())">
+                      <i class="fa-solid fa-calendar-week"></i> Tuesday, April
+                      7, 2026
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate4())">
+                      <i class="fa-regular fa-clock"></i> 10:45 AM
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate5())">
+                      <i class="fa-solid fa-clock"></i> 10:45:30 AM
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate6())">
+                      <i class="fa-solid fa-calendar-plus"></i> Apr 7, 2026,
+                      10:45 AM
+                    </div>
+                    <div class="dd-item" onclick="insertText(fmtDate7())">
+                      <i class="fa-solid fa-code"></i>
+                      2026-04-07T10:45:30
+                    </div>
+                  </div>
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="openSpecialChars()">
+                  <i class="fa-solid fa-infinity"></i> Special Characters…
+                </div>
+                <div class="dd-item" onclick="insertText('\u00a0')">
+                  <i class="fa-solid fa-text-width"></i> Non-breaking Space
+                  (NBSP)
+                </div>
+                <div class="dd-item" onclick="insertText('\u200b')">
+                  <i class="fa-solid fa-grip-lines-vertical"></i> Zero Width
+                  Space
+                </div>
+                <div class="dd-item" onclick="insertText('\u2014')">
+                  <i class="fa-solid fa-minus"></i> Em Dash —
+                </div>
+                <div class="dd-item" onclick="insertText('\u2026')">
+                  <i class="fa-solid fa-ellipsis"></i> Ellipsis …
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEW -->
+            <div class="menu-item">
+              <button class="menu-trigger" onclick="toggleMenu('menu-view')">
+                View<i class="fa-solid fa-caret-down"></i>
+              </button>
+              <div class="dropdown" id="menu-view">
+                <div class="dd-item" onclick="toggleFullscreen()">
+                  <i class="fa-solid fa-expand"></i> Full Screen
+                  <span class="shortcut">F11</span>
+                </div>
+                <div class="dd-item" onclick="toggleFindBar()">
+                  <i class="fa-solid fa-magnifying-glass"></i> Find &amp;
+                  Replace Bar
+                </div>
+                <div class="dd-sep"></div>
+                <div class="dd-item" onclick="zoomIn()">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom In
+                </div>
+                <div class="dd-item" onclick="zoomOut()">
+                  <i class="fa-solid fa-magnifying-glass-minus"></i> Zoom Out
+                </div>
+                <div class="dd-item" onclick="zoomReset()">
+                  <i class="fa-solid fa-magnifying-glass"></i> Reset Zoom
+                </div>
+              </div>
+            </div>
+
+            <!-- HELP -->
+            <div class="menu-item">
+              <button class="menu-trigger" onclick="toggleMenu('menu-help')">
+                Help<i class="fa-solid fa-caret-down"></i>
+              </button>
+              <div class="dropdown" id="menu-help">
+                <div class="dd-item" onclick="openShortcuts()">
+                  <i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts
+                </div>
+                <div class="dd-item" onclick="openAbout()">
+                  <i class="fa-solid fa-circle-info"></i> About
+                </div>
+              </div>
+            </div>
+
+            <div class="tb-sep"></div>
+            <button
+              class="menu-trigger"
+              onclick="toggleDarkMode()"
+              title="Toggle Dark Mode"
+            >
+              <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </button>
+          </div>
+          <!-- end menu bar -->
+
+          <!-- ═══ TOOLBAR ═══ -->
+          <div id="toolbar">
+            <!-- File ops -->
+            <button
+              class="tb-btn"
+              onclick="newDoc()"
+              title="New Document (Ctrl+N)"
+            >
+              <i class="fa-regular fa-file"></i>
+            </button>
+            <button class="tb-btn" onclick="openFile()" title="Open (Ctrl+O)">
+              <i class="fa-regular fa-folder-open"></i>
+            </button>
+            <button class="tb-btn" onclick="saveFile()" title="Save (Ctrl+S)">
+              <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+            <button class="tb-btn" onclick="printDoc()" title="Print (Ctrl+P)">
+              <i class="fa-solid fa-print"></i>
+            </button>
+
+            <div class="tb-sep"></div>
+
+            <!-- Edit ops -->
+            <button class="tb-btn" onclick="cmd('cut')" title="Cut (Ctrl+X)">
+              <i class="fa-solid fa-scissors"></i>
+            </button>
+            <button class="tb-btn" onclick="cmd('copy')" title="Copy (Ctrl+C)">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+            <button class="tb-btn" onclick="pasteText()" title="Paste (Ctrl+V)">
+              <i class="fa-solid fa-paste"></i>
+            </button>
+
+            <div class="tb-sep"></div>
+
+            <!-- Undo/Redo -->
+            <button class="tb-btn" onclick="cmd('undo')" title="Undo (Ctrl+Z)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button class="tb-btn" onclick="cmd('redo')" title="Redo (Ctrl+Y)">
+              <i class="fa-solid fa-rotate-right"></i>
+            </button>
+
+            <div class="tb-sep"></div>
+
+            <!-- Find & Replace -->
+            <button
+              class="tb-btn"
+              onclick="toggleFindBar()"
+              title="Find &amp; Replace (Ctrl+H)"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <div class="tb-sep"></div>
+
+            <!-- Font Family -->
+            <select
+              class="tb-select tb-select-font"
+              id="font-family-select"
+              onchange="changeFontFamily(this.value)"
+              title="Font Family"
+            >
+              <option value="'Lora', Georgia, serif">Lora</option>
+              <option value="Georgia, serif">Georgia</option>
+              <option value="'Times New Roman', Times, serif">
+                Times New Roman
+              </option>
+              <option value="Garamond, serif">Garamond</option>
+              <option value="Palatino, serif">Palatino</option>
+              <option value="'Book Antiqua', serif">Book Antiqua</option>
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="Helvetica, sans-serif">Helvetica</option>
+              <option value="Verdana, sans-serif">Verdana</option>
+              <option value="Tahoma, sans-serif">Tahoma</option>
+              <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+              <option value="'Gill Sans', sans-serif">Gill Sans</option>
+              <option value="Calibri, sans-serif">Calibri</option>
+              <option value="Optima, sans-serif">Optima</option>
+              <option value="'Courier New', monospace">Courier New</option>
+              <option value="'JetBrains Mono', monospace">
+                JetBrains Mono
+              </option>
+              <option value="'Lucida Console', monospace">
+                Lucida Console
+              </option>
+              <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+              <option value="Impact, sans-serif">Impact</option>
+              <option value="'Brush Script MT', cursive">Brush Script</option>
+              <option value="'Fira Sans', sans-serif">Fira Sans</option>
+              <option value="'Montserrat', sans-serif">Montserrat</option>
+              <option value="'Raleway', sans-serif">Raleway</option>
+              <option value="'Open Sans', sans-serif">Open Sans</option>
+              <option value="'Roboto', sans-serif">Roboto</option>
+              <option value="'Ubuntu', sans-serif">Ubuntu</option>
+              <option value="'Merriweather', serif">Merriweather</option>
+              <option value="'PT Serif', serif">PT Serif</option>
+              <option value="'Dancing Script', cursive">Dancing Script</option>
+              <option value="'Pacifico', cursive">Pacifico</option>
+            </select>
+
+            <!-- Font Size -->
+            <select
+              class="tb-select tb-select-size"
+              id="font-size-select"
+              onchange="changeFontSize(this.value)"
+              title="Font Size"
+            >
+              <option value="11">11</option>
+              <option value="12" selected>12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="18">18</option>
+              <option value="20">20</option>
+              <option value="24">24</option>
+              <option value="28">28</option>
+              <option value="32">32</option>
+              <option value="36">36</option>
+              <option value="48">48</option>
+              <option value="64">64</option>
+            </select>
+
+            <div class="tb-sep"></div>
+
+            <!-- Full Screen -->
+            <button
+              class="tb-btn"
+              onclick="toggleFullscreen()"
+              title="Full Screen (F11)"
+              id="fs-btn"
+            >
+              <i class="fa-solid fa-expand" id="fs-icon"></i>
+            </button>
+          </div>
+
+          <!-- end toolbar -->
+
+          <!-- ═══ FIND & REPLACE BAR ═══ -->
+          <div id="find-bar">
+            <i class="fa-solid fa-magnifying-glass find-bar-icon"></i>
+            <input
+              type="text"
+              id="find-input"
+              placeholder="Find…"
+              oninput="doFind()"
+              onkeydown="findKeyDown(event)"
+            />
+            <button class="find-btn" onclick="findPrev()">&#8593;</button>
+            <button class="find-btn" onclick="findNext()">&#8595;</button>
+            <span id="find-count"></span>
+            <i class="fa-solid fa-right-left find-bar-replace-icon"></i>
+            <input
+              type="text"
+              id="replace-input"
+              placeholder="Replace with…"
+              onkeydown="replaceKeyDown(event)"
+            />
+            <button class="find-btn" onclick="doReplace()">Replace</button>
+            <button class="find-btn" onclick="doReplaceAll()">All</button>
+            <button class="find-btn find-btn-close" onclick="closeFindBar()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- ═══ EDITOR ═══ -->
+          <div id="editor-area">
+            <div
+              id="editor"
+              contenteditable="true"
+              spellcheck="true"
+              oninput="onEdit()"
+              onkeydown="editorKeyDown(event)"
+              onfocus="closeAllMenus()"
+            ></div>
+          </div>
+
+          <!-- ═══ STATUS BAR ═══ -->
+          <div id="status-bar">
+            <div class="stat-group">
+              <span id="word-count">Words: 6</span>
+              <span id="char-count">Chars: 33</span>
+              <span id="line-count">Lines: 1</span>
+            </div>
+            <div class="stat-group">
+              <span
+                ><span id="save-dot"></span
+                ><span id="save-label">Saved</span></span
+              >
+              <span id="zoom-label">100%</span>
+            </div>
+          </div>
+        </div>
+        <!-- end #wrapper -->
+      </div>
+
+      <div class="rightSide">
+        <div class="ad-container-vertical">
+          <p class="ad-label">ADVERTISEMENT</p>
+          <ins
+            class="adsbygoogle ad-vertical-ins"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="XXXXXXXXXX"
+          ></ins>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file input -->
+    <input
+      type="file"
+      id="file-input"
+      accept=".txt,.md,.html,.js,.css,.json"
+      class="hidden-input"
+      onchange="handleFileOpen(event)"
+    />
+
+    <!-- ═══ MODALS ═══ -->
+
+    <!-- New Doc confirm -->
+    <div class="modal-overlay" id="modal-new">
+      <div class="modal">
+        <h3><i class="fa-regular fa-file modal-icon"></i>New Document</h3>
+        <p class="modal-desc">Unsaved changes will be lost. Continue?</p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-new')">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="confirmNew()">
+            New Document
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save As -->
+    <div class="modal-overlay" id="modal-save-as">
+      <div class="modal">
+        <h3><i class="fa-solid fa-file-export modal-icon"></i>Save As</h3>
+        <div class="modal-row">
+          <label>File name</label>
+          <input type="text" id="save-as-name" value="note.txt" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-save-as')">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="confirmSaveAs()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special Characters -->
+    <div class="modal-overlay" id="modal-special">
+      <div class="modal modal-wide">
+        <h3>
+          <span class="material-symbols-outlined"> special_character </span
+          >Special Characters
+        </h3>
+        <div class="char-grid" id="char-grid"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-special')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortcuts -->
+    <div class="modal-overlay" id="modal-shortcuts">
+      <div class="modal modal-wider">
+        <h3>
+          <i class="fa-solid fa-keyboard modal-icon"></i>Keyboard Shortcuts
+        </h3>
+        <table class="sc-table">
+          <tr>
+            <td>New Document</td>
+            <td>Ctrl + N</td>
+          </tr>
+          <tr>
+            <td>Open File</td>
+            <td>Ctrl + O</td>
+          </tr>
+          <tr>
+            <td>Save</td>
+            <td>Ctrl + S</td>
+          </tr>
+          <tr>
+            <td>Save As</td>
+            <td>Ctrl + Shift + S</td>
+          </tr>
+          <tr>
+            <td>Print</td>
+            <td>Ctrl + P</td>
+          </tr>
+          <tr>
+            <td>Undo</td>
+            <td>Ctrl + Z</td>
+          </tr>
+          <tr>
+            <td>Redo</td>
+            <td>Ctrl + Y</td>
+          </tr>
+          <tr>
+            <td>Cut</td>
+            <td>Ctrl + X</td>
+          </tr>
+          <tr>
+            <td>Copy</td>
+            <td>Ctrl + C</td>
+          </tr>
+          <tr>
+            <td>Paste</td>
+            <td>Ctrl + V</td>
+          </tr>
+          <tr>
+            <td>Select All</td>
+            <td>Ctrl + A</td>
+          </tr>
+          <tr>
+            <td>Find &amp; Replace</td>
+            <td>Ctrl + H</td>
+          </tr>
+          <tr>
+            <td>Full Screen</td>
+            <td>F11</td>
+          </tr>
+          <tr>
+            <td>Zoom In</td>
+            <td>Ctrl + +</td>
+          </tr>
+          <tr>
+            <td>Zoom Out</td>
+            <td>Ctrl + -</td>
+          </tr>
+          <tr>
+            <td>Reset Zoom</td>
+            <td>Ctrl + 0</td>
+          </tr>
+        </table>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="closeModal('modal-shortcuts')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="modal-overlay" id="modal-about">
+      <div class="modal">
+        <h3>
+          <i class="fa-solid fa-circle-info modal-icon"></i>About Online Notepad
+        </h3>
+        <p class="modal-about-text">
+          A clean, browser-based text editor with autosave, rich formatting
+          support, find &amp; replace, font controls, and more.<br /><br />
+          <b
+            >All notes are stored locally in your browser — nothing is sent to
+            any server.</b
+          >
+        </p>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="closeModal('modal-about')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="seo-footer">
+      <div class="footer-container">
+        <!-- TOP AD -->
+        <div class="footer-ad top-ad">
+          ADVERTISEMENT
+          <ins
+            class="adsbygoogle ad-block"
+            data-ad-client="ca-pub-XXXXXXXXXXXX"
+            data-ad-slot="1111111111"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+
+        <!-- FEATURES -->
+        <section class="features-grid">
+          <div class="feature-card">
+            <h3>Minimalist Design</h3>
+            <p>
+              This online text editor offers a clean and distraction-free
+              interface that helps you stay focused on writing. Whether you're
+              creating notes, articles, or drafts, the simple design ensures
+              maximum productivity.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Smart Autosave</h3>
+            <p>
+              Your content is automatically saved in real-time using browser
+              local storage. Even if you close the tab or your browser crashes,
+              your data remains safe and accessible.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Live Word Counter</h3>
+            <p>
+              Track words and characters instantly as you type. This feature is
+              useful for students, writers, and bloggers who need accurate
+              content length for assignments or SEO.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Find & Replace</h3>
+            <p>
+              Quickly search and replace words or sentences in your document. It
+              saves time while editing long content and improves writing
+              efficiency.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Error-Free Writing</h3>
+            <p>
+              With built-in browser spell checking, you can easily identify
+              mistakes and improve the quality of your writing.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Easy PDF & Print</h3>
+            <p>
+              Print your notes or download them as PDF files for sharing and
+              offline access anytime.
+            </p>
+          </div>
+        </section>
+
+        <hr class="footer-divider" />
+
+        <!-- ABOUT -->
+        <section class="footer-details">
+          <h2>About Our Free Online Text Editor</h2>
+          <p>
+            This free online notepad is a browser-based text editor designed for
+            fast, secure, and simple writing. It allows users to create and edit
+            plain text documents instantly without any login or signup.
+          </p>
+
+          <p>
+            Unlike traditional software, this tool runs completely in your
+            browser. You don't need to install anything, and you can access it
+            anytime from any device including desktop, mobile, or tablet.
+          </p>
+
+          <h3>How It Works</h3>
+          <p>
+            This editor uses HTML5 and localStorage technology to store your
+            data directly on your device. Your content is never sent to any
+            server, ensuring complete privacy.
+          </p>
+
+          <p>
+            Because it works locally, it is extremely fast and reliable. Even
+            with slow internet, you can continue writing without interruptions.
+          </p>
+
+          <h3>Privacy & Security</h3>
+          <p>
+            We do not collect or store your data. Everything stays inside your
+            browser unless you manually clear it. This makes it a highly secure
+            option for private notes.
+          </p>
+
+          <h3>Why Use This Notepad</h3>
+          <p>
+            This tool is perfect for quick notes, blogging drafts, coding
+            snippets, and everyday writing tasks. Its simplicity, speed, and
+            privacy-first design make it stand out from other editors.
+          </p>
+        </section>
+
+        <!-- MIDDLE AD -->
+        <div class="footer-ad middle-ad">
+          ADVERTISEMENT
+          <ins
+            class="adsbygoogle ad-block"
+            data-ad-client="ca-pub-XXXXXXXXXXXX"
+            data-ad-slot="2222222222"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+
+        <!-- EXTRA CONTENT (SEO BOOST) -->
+        <section class="footer-details">
+          <h3>Best Uses of This Online Notepad</h3>
+          <p>
+            This tool can be used for multiple purposes including writing
+            articles, saving temporary notes, preparing assignments, drafting
+            emails, or even practicing coding. It is a versatile solution for
+            everyday digital writing needs.
+          </p>
+
+          <p>
+            Many users also use this editor as a quick scratchpad because it
+            loads instantly and requires no setup. You can open it in seconds
+            and start typing immediately.
+          </p>
+
+          <h3>Benefits of Browser-Based Editing</h3>
+          <p>
+            Browser-based editors eliminate the need for installation and
+            updates. They are lightweight, fast, and accessible from anywhere.
+            Since your data stays on your device, you also get an extra layer of
+            security.
+          </p>
+
+          <p>
+            This approach ensures better performance and makes the tool suitable
+            for both casual and professional use.
+          </p>
+        </section>
+
+        <!-- TIPS -->
+        <section class="footer-tips">
+          <div class="tips-box">
+            <h4>Pro Tips</h4>
+            <ul>
+              <li>Always create backups of important notes.</li>
+              <li>Use keyboard shortcuts like Ctrl+S and Ctrl+F.</li>
+              <li>Bookmark this page for quick access.</li>
+              <li>Use short paragraphs for better readability.</li>
+            </ul>
+          </div>
+
+          <div class="compat-box">
+            <h4>Compatibility</h4>
+            <p>
+              This editor works on all modern browsers like Chrome, Firefox,
+              Safari, and Edge. Ensure JavaScript is enabled.
+            </p>
+          </div>
+        </section>
+
+        <!-- BOTTOM AD (OPTIONAL - HIGH RPM) -->
+        <div class="footer-ad bottom-ad">
+          ADVERTISEMENT
+          <ins
+            class="adsbygoogle ad-block"
+            data-ad-client="ca-pub-XXXXXXXXXXXX"
+            data-ad-slot="3333333333"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-bottom">
+          <p>&copy; 2026 Online Notepad - Free, Fast & Secure Writing Tool.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

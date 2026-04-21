@@ -1,0 +1,1051 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --border: #e0ddd6;
+  --text: #1a1916;
+  --text-muted: #6b6860;
+  --accent: #2b6cb0;
+  --title-bg: #1e2a3a;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg: #242424;
+  --surface: #1e1e1e;
+  --border: #333333;
+  --text: #ffffff;
+  --text-muted: #b0b0b0;
+  --accent: #63b3ed;
+  --title-bg: #000000;
+}
+
+body {
+  font-family: "Lora", Georgia, serif;
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+.topBannerAd {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/* ─── NEW LAYOUT FIX ─── */
+.fullScreen {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 106px);
+  background: var(--bg);
+}
+
+.leftSide {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── RIGHT SIDEBAR CSS ─── */
+.rightSide {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.Middle {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ─── MIDDLE CSS ─── */
+#wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+  /* Editor ki max width set karne ke liye */
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px 8px 0 0;
+
+  background: var(--surface);
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 8px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ─── TITLE BAR ─── */
+#title-bar {
+  background: var(--title-bg);
+  color: #e8e4dc;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid #2b6cb0;
+  border-radius: 8px 8px 0 0;
+}
+
+#title-bar i {
+  font-size: 16px;
+  color: #63b3ed;
+}
+
+#title-bar span {
+  font-family: "Lora", serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+#title-bar .doc-name {
+  margin-left: auto;
+  font-size: 12px;
+  color: #90a0b7;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* ─── MENU BAR ─── */
+#menu-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 8px;
+  display: flex;
+  align-items: stretch;
+  height: 34px;
+  position: relative;
+  z-index: 1000;
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menu-trigger {
+  background: none;
+  border: none;
+  font-family: "Lora", serif;
+  font-size: 13px;
+  color: var(--text);
+  padding: 0 12px;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 4px;
+  transition: background 0.12s;
+  white-space: nowrap;
+}
+
+.menu-trigger:hover,
+.menu-trigger.active {
+  background: var(--menu-hover);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 230px;
+  box-shadow: var(--dropdown-shadow);
+  z-index: 9999;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.dropdown.open {
+  display: block;
+}
+
+.dd-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-family: "Lora", serif;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.1s;
+  white-space: nowrap;
+}
+
+.dd-item:hover {
+  background: var(--menu-hover);
+}
+
+.dd-item i {
+  width: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.dd-item .shortcut {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-hint);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.dd-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.dd-sub {
+  position: relative;
+}
+
+.dd-sub > .dd-item::after {
+  content: "▶";
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-hint);
+}
+
+.dd-sub .sub-dropdown {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 220px;
+  box-shadow: var(--dropdown-shadow);
+  padding: 4px 0;
+  z-index: 10000;
+}
+
+.dd-sub:hover .sub-dropdown {
+  display: block;
+}
+
+/* ─── TOOLBAR ─── */
+#toolbar {
+  background-color: var(--bg);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 66px;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.tb-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.12s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: "Lora", serif;
+}
+
+.tb-btn:hover {
+  background: var(--menu-hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.tb-btn i {
+  font-size: 13px;
+}
+
+.tb-btn .tb-label {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.tb-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+select.tb-select {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-family: "Lora", serif;
+  height: 30px;
+  flex-shrink: 0;
+  outline: none;
+}
+
+select.tb-select:hover {
+  border-color: var(--border-strong);
+}
+
+/* Font Family Dropdown Options Styling */
+#font-family-select option[value="'Lora', Georgia, serif"] {
+  font-family: "Lora", Georgia, serif;
+}
+
+#font-family-select option[value="Georgia, serif"] {
+  font-family: Georgia, serif;
+}
+
+#font-family-select option[value="'Times New Roman', Times, serif"] {
+  font-family: "Times New Roman", Times, serif;
+}
+
+#font-family-select option[value="Garamond, serif"] {
+  font-family: Garamond, serif;
+}
+
+#font-family-select option[value="Palatino, serif"] {
+  font-family: Palatino, serif;
+}
+
+#font-family-select option[value="'Book Antiqua', serif"] {
+  font-family: "Book Antiqua", serif;
+}
+
+#font-family-select option[value="Arial, sans-serif"] {
+  font-family: Arial, sans-serif;
+}
+
+#font-family-select option[value="Helvetica, sans-serif"] {
+  font-family: Helvetica, sans-serif;
+}
+
+#font-family-select option[value="Verdana, sans-serif"] {
+  font-family: Verdana, sans-serif;
+}
+
+#font-family-select option[value="Tahoma, sans-serif"] {
+  font-family: Tahoma, sans-serif;
+}
+
+#font-family-select option[value="'Trebuchet MS', sans-serif"] {
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+#font-family-select option[value="'Gill Sans', sans-serif"] {
+  font-family: "Gill Sans", sans-serif;
+}
+
+#font-family-select option[value="Calibri, sans-serif"] {
+  font-family: Calibri, sans-serif;
+}
+
+#font-family-select option[value="Optima, sans-serif"] {
+  font-family: Optima, sans-serif;
+}
+
+#font-family-select option[value="'Courier New', monospace"] {
+  font-family: "Courier New", monospace;
+}
+
+#font-family-select option[value="'JetBrains Mono', monospace"] {
+  font-family: "JetBrains Mono", monospace;
+}
+
+#font-family-select option[value="'Lucida Console', monospace"] {
+  font-family: "Lucida Console", monospace;
+}
+
+#font-family-select option[value="'Comic Sans MS', cursive"] {
+  font-family: "Comic Sans MS", cursive;
+}
+
+#font-family-select option[value="Impact, sans-serif"] {
+  font-family: Impact, sans-serif;
+}
+
+#font-family-select option[value="'Brush Script MT', cursive"] {
+  font-family: "Brush Script MT", cursive;
+}
+
+/* Extra fonts */
+#font-family-select option[value="'Fira Sans', sans-serif"] {
+  font-family: "Fira Sans", sans-serif;
+}
+
+#font-family-select option[value="'Montserrat', sans-serif"] {
+  font-family: "Montserrat", sans-serif;
+}
+
+#font-family-select option[value="'Raleway', sans-serif"] {
+  font-family: "Raleway", sans-serif;
+}
+
+#font-family-select option[value="'Open Sans', sans-serif"] {
+  font-family: "Open Sans", sans-serif;
+}
+
+#font-family-select option[value="'Roboto', sans-serif"] {
+  font-family: "Roboto", sans-serif;
+}
+
+#font-family-select option[value="'Ubuntu', sans-serif"] {
+  font-family: "Ubuntu", sans-serif;
+}
+
+#font-family-select option[value="'Merriweather', serif"] {
+  font-family: "Merriweather", serif;
+}
+
+#font-family-select option[value="'PT Serif', serif"] {
+  font-family: "PT Serif", serif;
+}
+
+#font-family-select option[value="'Dancing Script', cursive"] {
+  font-family: "Dancing Script", cursive;
+}
+
+#font-family-select option[value="'Pacifico', cursive"] {
+  font-family: "Pacifico", cursive;
+}
+
+/* ─── EDITOR AREA ─── */
+#editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#editor {
+  flex: 1;
+  padding: 16px 19px;
+  font-size: 15px;
+  line-height: 1.9;
+  background: var(--surface);
+  color: var(--text);
+  border: none;
+  outline: none;
+  font-family: "Lora", Georgia, serif;
+  overflow-y: auto;
+  min-height: 400px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  caret-color: var(--accent);
+}
+
+#editor:empty::before {
+  content: "";
+  color: var(--text-hint);
+  pointer-events: none;
+}
+
+/* ─── FIND & REPLACE BAR ─── */
+#find-bar {
+  display: none;
+  background: #f8f7f4;
+  border-top: 1px solid var(--border);
+  padding: 8px 16px;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#find-bar.open {
+  display: flex;
+}
+
+#find-bar input {
+  font-size: 13px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  width: 160px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+#find-bar input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.12);
+}
+
+.find-btn {
+  font-size: 12px;
+  padding: 5px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-family: "Lora", serif;
+}
+
+.find-btn:hover {
+  background: var(--menu-hover);
+}
+
+#find-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  min-width: 50px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+mark {
+  background: #fef3c7;
+  color: #78350f;
+  border-radius: 2px;
+}
+
+mark.current {
+  background: var(--accent);
+  color: white;
+  border-radius: 2px;
+}
+
+/* ─── STATUS BAR ─── */
+#status-bar {
+  background: var(--title-bg);
+  color: #90a0b7;
+  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  padding: 22px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+#status-bar .stat-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#save-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #48bb78;
+  display: inline-block;
+  margin-right: 5px;
+  transition: background 0.3s;
+}
+
+#save-dot.saving {
+  background: #ed8936;
+}
+
+/* ─── MODALS ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  min-width: 340px;
+  max-width: 90vw;
+  box-shadow: var(--dropdown-shadow);
+}
+
+.modal h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-family: "Lora", serif;
+}
+
+.modal-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.modal-row label {
+  font-size: 13px;
+  color: var(--text-muted);
+  min-width: 70px;
+}
+
+.modal-row input {
+  flex: 1;
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.modal-row input:focus {
+  border-color: var(--accent);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  padding: 7px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: "Lora", serif;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-cancel {
+  background: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 7px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: "Lora", serif;
+}
+
+.btn-cancel:hover {
+  background: var(--menu-hover);
+}
+
+/* shortcuts modal */
+.sc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.sc-table tr td {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sc-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sc-table td:first-child {
+  color: var(--text-muted);
+}
+
+.sc-table td:last-child {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--accent);
+  text-align: right;
+}
+
+/* special chars modal */
+.char-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.char-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s;
+  font-family: serif;
+}
+
+.char-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* fullscreen */
+#wrapper.fullscreen {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  z-index: 50000;
+  box-shadow: none;
+}
+
+#editor.fullscreen-editor {
+  min-height: calc(100vh - 200px);
+}
+
+.seo-footer {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.footer-ad {
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* ─── MOBILE OPTIMIZATION (Phone ke liye) ─── */
+@media (max-width: 768px) {
+  .leftSide,
+  .rightSide {
+    display: none !important;
+  }
+
+  .fullScreen {
+    display: block;
+    min-height: auto;
+  }
+
+  .Middle {
+    width: 100%;
+    padding: 0;
+  }
+
+  #title-bar h1 {
+    font-size: 1rem;
+  }
+
+  #wrapper {
+    max-width: 100%;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    height: 100vh;
+  }
+
+  #toolbar {
+    display: flex;
+    overflow-x: auto;
+    /* Buttons side mein scroll honge */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling for iPhone */
+    padding: 5px;
+    gap: 8px;
+    height: 150px;
+  }
+
+  .tb-btn .tb-label {
+    display: none;
+  }
+
+  .tb-btn {
+    padding: 8px 12px;
+    font-size: 18px;
+  }
+
+  #editor {
+    padding: 20px 15px;
+    font-size: 16px;
+    /* Mobile par 16px best hai focus ke liye */
+  }
+
+  /* 4. Menu Bar ko bhi scrollable rakhA */
+  #menu-bar {
+    overflow-x: auto;
+    display: flex;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+    color: #000 !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #editor,
+  #editor * {
+    visibility: visible;
+  }
+
+  #editor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* ─── AD ELEMENTS ─── */
+/* Top banner ad (728x90) */
+.ad-top-banner-ins {
+  display: inline-block;
+  width: 728px;
+  height: 90px;
+}
+
+/* Left/Right sidebar vertical ad (160x600) */
+.ad-vertical-ins {
+  display: inline-block;
+  width: 160px;
+  height: 600px;
+}
+
+/* Footer block ads (responsive) */
+.ad-block {
+  display: block;
+}
+
+/* Ad label text above sidebar ads */
+.ad-label {
+  font-size: 10px;
+  color: #666;
+}
+
+/* ─── TOOLBAR SELECT WIDTHS ─── */
+/* Font family dropdown width */
+.tb-select-font {
+  width: 148px;
+}
+
+/* Font size dropdown width */
+.tb-select-size {
+  width: 64px;
+}
+
+/* ─── FIND BAR ICONS ─── */
+/* Magnifying glass icon in find bar */
+.find-bar-icon {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Replace arrow icon in find bar */
+.find-bar-replace-icon {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Close button in find bar pushed to the right */
+.find-btn-close {
+  margin-left: auto;
+}
+
+/* ─── HIDDEN INPUT ─── */
+/* File input element hidden from view */
+.hidden-input {
+  display: none;
+}
+
+/* ─── MODAL VARIANTS ─── */
+/* Modal icon (accent color + right margin) used in all modal headings */
+.modal-icon {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+/* Special characters modal – wider than default */
+.modal-wide {
+  min-width: 400px;
+}
+
+/* Keyboard shortcuts modal – widest modal */
+.modal-wider {
+  min-width: 420px;
+}
+
+/* New-doc warning paragraph */
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* About modal body text */
+.modal-about-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ─── FOOTER SECTIONS ─── */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.feature-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.feature-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+
+.footer-details {
+  margin-bottom: 20px;
+}
+
+.footer-details h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.footer-details h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 14px 0 6px;
+  color: var(--text);
+}
+
+.footer-details p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.footer-tips {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.tips-box,
+.compat-box {
+  flex: 1;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.tips-box h4,
+.compat-box h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.tips-box ul {
+  padding-left: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.compat-box p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 16px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
